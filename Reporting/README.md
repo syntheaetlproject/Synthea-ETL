@@ -33,7 +33,7 @@ This guide walks you through setting up **Power BI Desktop** to query data direc
 
 ---
 
-## 🔌 Step 3: Install Athena ODBC Driver
+## Step 3: Install Athena ODBC Driver
 
 1. Download the ODBC Driver for Amazon Athena:  
      https://docs.aws.amazon.com/athena/latest/ug/athena-odbc.html
@@ -41,7 +41,7 @@ This guide walks you through setting up **Power BI Desktop** to query data direc
 
 ---
 
-## ⚙️ Step 4: Configure ODBC Data Source (DSN)
+## Step 4: Configure ODBC Data Source (DSN)
 
 1. Open **ODBC Data Sources (64-bit)** from the Start Menu.
 2. Go to the **System DSN** tab.
@@ -55,7 +55,9 @@ This guide walks you through setting up **Power BI Desktop** to query data direc
    - **Password**: *Paste Secret Access Key*
 
 Click **Test** to ensure the connection is successful, then **OK**.
-
+![launch odbc](images/odbc.png)
+![add](images/athenaODBC)
+![auth](images/ODBCauth)
 ---
 
 ## Step 5: Connect Power BI to Athena
@@ -65,7 +67,8 @@ Click **Test** to ensure the connection is successful, then **OK**.
 3. Choose the DSN: `Athena-PowerBI` → Click **OK**.
 4. Select your Athena database and table.
 5. Click **Load** or **Transform Data**.
-
+![PowerBI](images/powerbiTwo.png)
+![PowerBI](images/powerbiOne.png)
 ---
 
 ## You're All Set!
