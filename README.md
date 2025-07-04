@@ -32,8 +32,8 @@ The primary objective of this project is to convert raw synthetic data into clea
 4. **Query Engine with Amazon Athena**  
    Athena allows serverless SQL querying on the Parquet files, enabling the creation of flexible, business-focused data marts.
 
-5. **Reporting with Amazon QuickSight**  
-   QuickSight connects to Athena for interactive dashboards and real-time business intelligence insights.
+5. **Reporting with PowerBI**  
+   PowerBI connects to Athena for interactive dashboards and real-time business intelligence insights.
 
 ## Architecture Components
 
@@ -45,7 +45,7 @@ The primary objective of this project is to convert raw synthetic data into clea
 | **Data Mart Creation** | AWS Glue Job      | Organize cleaned data into specific structures           |
 | **Automation**         | AWS Glue Triggers | Schedule and automate ETL job execution                  |
 | **Schema Management**  | Glue Data Catalog | Maintain consistent schema and structure across datasets |
-| **Visualization**      | AWS QuickSight    | Build interactive dashboards and derive business insights |
+| **Visualization**      | PowerBI    | Build interactive dashboards and derive business insights |
 
 ## Data Import Workflow
 
@@ -110,8 +110,8 @@ Within this Data Mart, we designed:
 
 The schema design followed best practices of a Star Schema.
 
-Reporting and Analysis with Amazon QuickSight
-Amazon QuickSight was used to create interactive dashboards and visual reports. It connects directly with Amazon Athena to query the bucp2_glue_db6 database, allowing us to:
+Reporting and Analysis with PowerBI
+Amazon PowerBI was used to create interactive dashboards and visual reports. It connects directly with Amazon Athena to query the bucp2_glue_db6 database, allowing us to:
 
 Visualize patient demographics, encounter trends, condition distribution, and more
 
@@ -128,7 +128,7 @@ AWS Glue
 
 Athena
 
-QuickSight
+PowerBI
 
 We designed a Data Mart with one fact and six dimension tables for structured analysis. The architecture ensures:
 
