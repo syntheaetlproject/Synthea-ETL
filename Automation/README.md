@@ -1,4 +1,4 @@
-# 🩺 AWS Synthea Healthcare Data Pipeline
+# AWS Synthea Healthcare Data Pipeline
 
 This guide will walk you through setting up a complete ETL pipeline for **Synthea synthetic healthcare data** using:
 - AWS Glue (ETL)
@@ -9,11 +9,11 @@ This guide will walk you through setting up a complete ETL pipeline for **Synthe
 
 ---
 
-## 🧩 Task 1: Generate Synthea Data (CSV Format)
+## Task 1: Generate Synthea Data (CSV Format)
 
 ### 1️⃣ Download and Setup Synthea
 - Download the Synthea project ZIP from GitHub:  
-  👉 https://github.com/synthetichealth/synthea
+    https://github.com/synthetichealth/synthea
 
 - Extract the folder and navigate to:
 
@@ -27,7 +27,7 @@ synthea/src/main/resources/synthea.properties
   exporter.csv.export = true
   ```
 
-### 2️⃣ Run the Synthea Generator
+### Run the Synthea Generator
 Open terminal in the Synthea root directory and run:
 
 ```bash
@@ -36,13 +36,11 @@ Open terminal in the Synthea root directory and run:
 
 📁 After completion, you'll see an `output/csv` folder with **18 CSV files**.
 
-![CSV Output Example](images/synthea_output_folder.png)
-
 ---
 
-## ⚙️ Task 2: AWS Glue + Lambda Automation
+## Task 2: AWS Glue + Lambda Automation
 
-### 1️⃣ Create an S3 Bucket
+### Create an S3 Bucket
 
 - Go to **S3** and create a bucket (e.g., `synthea-data-pipeline`)
 - Inside it, create these folders:
@@ -58,7 +56,7 @@ Open terminal in the Synthea root directory and run:
 
 ---
 
-### 2️⃣ Create AWS Glue Jobs
+### Create AWS Glue Jobs
 
 - Go to **AWS Glue → Jobs** and create Glue ETL scripts
 - Set:
@@ -69,13 +67,13 @@ Open terminal in the Synthea root directory and run:
 
 ---
 
-### 3️⃣ Add Lambda Trigger
+### Add Lambda Trigger
 
 - Create a **Lambda function** to trigger Glue Job
 - Increase Lambda timeout (e.g., 5 mins or more)
 - Grant it proper **IAM permissions** to start Glue jobs
 
-> ✅ **Attach the following IAM Policies**:
+> **Attach the following IAM Policies**:
 - `AWSGlueServiceRole`
 - `AmazonS3FullAccess`
 - `AWSLambdaBasicExecutionRole`
@@ -83,7 +81,7 @@ Open terminal in the Synthea root directory and run:
 
 ---
 
-### 4️⃣ Add Event Notification to S3
+### Add Event Notification to S3
 
 Go to:
 
@@ -96,7 +94,7 @@ Go to:
 
 ---
 
-### 5️⃣ Create Glue Workflow
+### Create Glue Workflow
 
 Go to **AWS Glue → Workflows**  
 - Create a new workflow and attach your Glue jobs in sequence.
@@ -107,15 +105,15 @@ Go to **AWS Glue → Workflows**
 
 ---
 
-## 🧪 Task 3: Run the Pipeline
+## Task 3: Run the Pipeline
 
-### ✅ Add Input Data
+### Add Input Data
 
 - Upload your **18 CSV files** into `incoming/` folder in your S3 bucket.
 
 ---
 
-### 🛠 Monitor Execution
+### Monitor Execution
 
 - **Lambda Logs**:  
   Go to **CloudWatch → Log Groups → /aws/lambda/<your_lambda>**
@@ -123,11 +121,11 @@ Go to **AWS Glue → Workflows**
 - **Glue Job Monitoring**:  
   Go to **AWS Glue → Jobs → Monitor Runs**
 
-> 🔄 Refresh the page manually if Glue run status doesn’t auto-update.
+>  Refresh the page manually if Glue run status doesn’t auto-update.
 
 ---
 
-### 🔍 Query with Amazon Athena
+###  Query with Amazon Athena
 
 1. Go to **Athena → Settings** and set query result location (e.g., `s3://synthea-data-pipeline/athena-results/`)
 2. Select the database created by Glue jobs
@@ -135,15 +133,6 @@ Go to **AWS Glue → Workflows**
 
 ---
 
-## 📊 Visualize in Power BI
-
-Now that your data is in Athena:
-1. Install the [Athena ODBC Driver](https://docs.aws.amazon.com/athena/latest/ug/athena-odbc.html)
-2. Create a DSN and connect it to Athena
-3. Open **Power BI → Get Data → ODBC → Athena DSN**
-4. Load your datasets and create reports!
-
----
 
 ## 🧾 Notes
 
@@ -151,24 +140,3 @@ Now that your data is in Athena:
 - Ensure S3, Glue, and Lambda are in the **same region**
 - Update concurrency and memory limits based on job performance
 - Monitor failed job runs in **CloudWatch Logs**
-
----
-
-## 📁 Folder Reference
-
-```
-synthea/
-├── output/
-│   └── csv/
-│       ├── patients.csv
-│       ├── conditions.csv
-│       └── ...
-```
-
-```
-S3 Bucket: synthea-data-pipeline/
-├── incoming/
-├── processed/
-├── errors/
-└── athena-results/
-```
