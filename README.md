@@ -1,4 +1,4 @@
-# Synthea-ETL
+
 # Scalable AWS Data Pipeline for Synthea Dataset
 
 ## Overview
