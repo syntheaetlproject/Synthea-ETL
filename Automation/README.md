@@ -1,7 +1,7 @@
 # AWS Synthea Healthcare Data Pipeline
 
 This guide will walk you through setting up a complete ETL pipeline for **Synthea synthetic healthcare data** using:
-- AWS Glue (ETL)
+- AWS Glue (ETL and Orchestration)
 - AWS Lambda (trigger)
 - Amazon S3 (storage)
 - Amazon Athena (query)
@@ -11,7 +11,7 @@ This guide will walk you through setting up a complete ETL pipeline for **Synthe
 
 ## Task 1: Generate Synthea Data (CSV Format)
 
-### 1️⃣ Download and Setup Synthea
+### Download and Setup Synthea
 - Download the Synthea project ZIP from GitHub:  
     https://github.com/synthetichealth/synthea
 
@@ -34,7 +34,7 @@ Open terminal in the Synthea root directory and run:
 ./run_synthea -p <NUMBER_OF_PATIENTS>
 ```
 
-📁 After completion, you'll see an `output/csv` folder with **18 CSV files**.
+ After completion, you'll see an `output/csv` folder with **18 CSV files**.
 
 ---
 
@@ -44,15 +44,9 @@ Open terminal in the Synthea root directory and run:
 
 - Go to **S3** and create a bucket (e.g., `synthea-data-pipeline`)
 - Inside it, create these folders:
-  ```
-  /incoming/
-  /processed/
-  /errors/
-  ```
+ 
 
-> 📷 Refer to image below for example folder structure:
-
-![S3 Folder Structure](images/s3_structure.png)
+![S3 Folder Structure](images/list.png)
 
 ---
 
@@ -60,9 +54,9 @@ Open terminal in the Synthea root directory and run:
 
 - Go to **AWS Glue → Jobs** and create Glue ETL scripts
 - Set:
-  - **Number of Workers**: e.g., 10
-  - **Worker Type**: G.1X or G.2X
-  - **Concurrency**: Max 18 for Job 1
+  - **Number of Workers**: According to your need
+  - **Worker Type**: According to your need
+  - **Concurrency**: According to your need
   - Add required **environment variables**
 
 ---
@@ -86,7 +80,8 @@ Open terminal in the Synthea root directory and run:
 Go to:
 
 **S3 → Properties → Event Notifications → Add Event**
-
+![S3 Folder Structure](images/properties.png)
+![S3 Folder Structure](images/event.png)
 - Name: `TriggerLambda`
 - Event Type: `PUT`
 - Prefix: `incoming/`
@@ -99,9 +94,9 @@ Go to:
 Go to **AWS Glue → Workflows**  
 - Create a new workflow and attach your Glue jobs in sequence.
 
-> 📷 Refer to the image below for an example Glue Workflow setup:
+> Refer to the image below for an example Glue Workflow setup:
 
-![Glue Workflow Setup](images/glue_workflow.png)
+![Glue Workflow Setup](images/workflow.png)
 
 ---
 
@@ -109,7 +104,7 @@ Go to **AWS Glue → Workflows**
 
 ### Add Input Data
 
-- Upload your **18 CSV files** into `incoming/` folder in your S3 bucket.
+- Upload your **18 CSV files** into `datasource/` folder in your S3 bucket.
 
 ---
 
@@ -134,7 +129,7 @@ Go to **AWS Glue → Workflows**
 ---
 
 
-## 🧾 Notes
+## Notes
 
 - Always test Lambda with smaller datasets first
 - Ensure S3, Glue, and Lambda are in the **same region**
