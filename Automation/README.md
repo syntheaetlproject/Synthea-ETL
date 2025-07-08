@@ -47,8 +47,8 @@ Open terminal in the Synthea root directory and run:
  
 
 ![S3 Folder Structure](images/list.png)
-
 ---
+*Archive is a folder thats gonna have the files the backup files
 
 ### Create AWS Glue Jobs
 
@@ -138,3 +138,10 @@ Go to **AWS Glue → Workflows**
 
 ## My Flow
 ![Diagram](images/diagram.png)
+
+## Customizations you can make:
+1. You can use step funtion for manually trigerring or also only glue workflow with all triggers at once for manual orchestration.
+2. Automation can also be done using event bridge
+3. An easy approach - make change to the lambda and add code which tells the lambda - if a particular name file exists then trigger each job as this could reduce your concurrency (the lambda will trigger job only when it gets the marked file which indicates a manual way to run everything but from the client side — or whatever you say developer)
+
+*A good approach: always use time with date for folder naming as sometimes you need to run multiple jobs in a day.
