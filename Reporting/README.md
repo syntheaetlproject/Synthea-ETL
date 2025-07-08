@@ -93,3 +93,9 @@ If you face issues with ODBC or connection:
 - Ensure your machine firewall or proxy isn’t blocking ODBC connections.
 - Consult AWS Docs or Power BI Forums.
 
+---
+
+## Custimizations you can do:
+1. You can use Quicksight, an aws reporting tool, much easy approach if you have access. You just need to select the Athena Source and You are all set
+2. Make the reporting responsive to changes (like filters)
+
