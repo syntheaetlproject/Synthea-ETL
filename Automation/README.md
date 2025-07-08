@@ -80,11 +80,11 @@ Open terminal in the Synthea root directory and run:
 Go to:
 
 **S3 → Properties → Event Notifications → Add Event**
-![S3 Folder Structure](images/properties.png)
-![S3 Folder Structure](images/event.png)
+![Event Notification](images/properties.png)
+![Event Notificattion](images/event.png)
 - Name: `TriggerLambda`
 - Event Type: `PUT`
-- Prefix: `incoming/`
+- Prefix: `datasource/`
 - Destination: Select your Lambda function
 
 ---
@@ -135,3 +135,6 @@ Go to **AWS Glue → Workflows**
 - Ensure S3, Glue, and Lambda are in the **same region**
 - Update concurrency and memory limits based on job performance
 - Monitor failed job runs in **CloudWatch Logs**
+
+## My Flow
+![Diagram](images/diagram.png)
